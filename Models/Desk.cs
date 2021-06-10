@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
-namespace MegaDeskRazor
+namespace MegaDeskRazor.Models
 {
     public class Desk
     {
@@ -12,8 +13,10 @@ namespace MegaDeskRazor
         public decimal Width { get; set; }
         public decimal Depth { get; set; }
 
+        [Display(Name="Number of Drawers")]
         public int NumberOfDrawers { get; set; }
 
+        [Display(Name = "Desktop MaterialId")]
         public int DesktopMaterialId { get; set; }
 
         //navegation  propeties

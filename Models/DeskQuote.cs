@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
-
-namespace MegaDeskRazor
+namespace MegaDeskRazor.Models
 {
     public class DeskQuote
     {
@@ -21,13 +21,21 @@ namespace MegaDeskRazor
 
         public int DeskQuoteId { get; set; }
         public int DeskId { get; set; }
+
+        [Display(Name = " Customer Name")]
         public string CustomerName { get; set; }
+
+        [Display(Name = "Quote Date")]
         public DateTime QuoteDate { get; set; }
         public int DeliveryId { get; set; }
+
+        [Display(Name = "Quote Price")]
         public decimal QuotePrice { get; set; }
 
         //navigation  properties
         public Desk Desk { get; set; }
+
+        [Display(Name = "Delivery Type")]
         public Delivery DeliveryType { get; set; }
 
         //methods
