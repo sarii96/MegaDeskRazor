@@ -59,13 +59,38 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+     background-color: whitesmoke;
+    margin-bottom: 60px;
+    font-family: 'Playfair Display', serif;
+    /*background-image: url(https://images.unsplash.com/photo-1594636797501-ef436e157819?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80);
+    background-size: cover;
+    background-position: center;*/
+    
 }
+
+/*.pb-3{
+    background-color: white;
+}*/
+/*.display-4{
+    color:whitesmoke;
+    padding-top: 5%;
+}*/
+img {
+   
+  max-width: 100%;
+  height: auto;
+}
+/**/
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: black;
+    text-align: center;
 }
+    .footer div {
+        color: whitesmoke;
+    }
