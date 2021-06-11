@@ -24,6 +24,8 @@ namespace MegaDeskRazor.Models
         public int DeskId { get; set; }
 
         [Display(Name = " Customer Name")]
+        [StringLength(60, MinimumLength = 3)]
+        [Required]
         public string CustomerName { get; set; }
 
         [Display(Name = "Quote Date")]
@@ -31,6 +33,7 @@ namespace MegaDeskRazor.Models
         public int DeliveryId { get; set; }
 
         [Display(Name = "Quote Price")]
+        [DataType(DataType.Currency)]
         public decimal QuotePrice { get; set; }
 
         //navigation  properties

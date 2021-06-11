@@ -24,7 +24,7 @@ namespace MegaDeskRazor.Pages.DeskQuotes
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; }
         public SelectList CustomerNames { get; set; }
-        [BindProperty(SupportsGet = true)]
+       
         public string DeskCustomerName { get; set; }
 
         public async Task OnGetAsync()
