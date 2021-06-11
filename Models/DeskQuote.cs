@@ -39,6 +39,7 @@ namespace MegaDeskRazor.Models
         public Delivery DeliveryType { get; set; }
 
         //methods
+        //you have to add _context
         public decimal GetQuotePrice()
         {
             // getRushOrderPrices();

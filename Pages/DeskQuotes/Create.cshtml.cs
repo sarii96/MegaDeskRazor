@@ -48,6 +48,7 @@ namespace MegaDeskRazor.Pages.DeskQuotes
             DeskQuote.QuoteDate = DateTime.Now;
             DeskQuote.DeskId = Desk.DeskId;
             DeskQuote.Desk = Desk;
+            //add _context
             DeskQuote.QuotePrice = DeskQuote.GetQuotePrice();
 
           

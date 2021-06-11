@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MegaDeskRazor.Data;
 using MegaDeskRazor.Models;
 
@@ -20,6 +21,11 @@ namespace MegaDeskRazor.Pages.DeskQuotes
         }
 
         public IList<DeskQuote> DeskQuote { get;set; }
+        [BindProperty(SupportsGet = true)]
+        public string SearchString { get; set; }
+        public SelectList CustomerNames { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public string DeskCustomerName { get; set; }
 
         public async Task OnGetAsync()
         {
