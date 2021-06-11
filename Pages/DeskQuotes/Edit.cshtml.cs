@@ -23,6 +23,9 @@ namespace MegaDeskRazor.Pages.DeskQuotes
         [BindProperty]
         public DeskQuote DeskQuote { get; set; }
 
+        [BindProperty]
+        public Desk Desk { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -38,8 +41,11 @@ namespace MegaDeskRazor.Pages.DeskQuotes
             {
                 return NotFound();
             }
-           ViewData["DeliveryId"] = new SelectList(_context.Set<Delivery>(), "DeliveryId", "DeliveryId");
-           ViewData["DeskId"] = new SelectList(_context.Set<Desk>(), "DeskId", "DeskId");
+
+            ViewData["DeliveryId"] = new SelectList(_context.Set<Delivery>(), "DeliveryId", "DeliveryId");
+            ViewData["DeskId"] = new SelectList(_context.Set<Desk>(), "DeskId", "DeskId");
+            ViewData["DesktopMaterialId"] = new SelectList(_context.Set<DesktopMaterial>(), "DesktopMaterialId", "DesktopMaterialName");
+
             return Page();
         }
 
@@ -51,7 +57,7 @@ namespace MegaDeskRazor.Pages.DeskQuotes
             {
                 return Page();
             }
-
+            DeskQuote.QuotePrice = DeskQuote.GetQuotePrice(_context);
             _context.Attach(DeskQuote).State = EntityState.Modified;
 
             try

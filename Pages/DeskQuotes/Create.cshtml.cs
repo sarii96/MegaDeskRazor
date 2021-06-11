@@ -40,20 +40,19 @@ namespace MegaDeskRazor.Pages.DeskQuotes
                 return Page();
             }
             //add Desk to database
-
-            _context.Desk.Add(Desk);
-            await _context.SaveChangesAsync();
+           _context.Desk.Add(Desk);
+           await _context.SaveChangesAsync();
 
             //add DeskQuote dynamic properties
             DeskQuote.QuoteDate = DateTime.Now;
             DeskQuote.DeskId = Desk.DeskId;
             DeskQuote.Desk = Desk;
-            DeskQuote.QuotePrice = DeskQuote.GetQuotePrice();
+            DeskQuote.QuotePrice = DeskQuote.GetQuotePrice(_context);
 
           
 
             _context.DeskQuote.Add(DeskQuote);
-            await _context.SaveChangesAsync();
+           await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }
