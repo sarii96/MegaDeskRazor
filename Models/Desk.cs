@@ -16,7 +16,7 @@ namespace MegaDeskRazor.Models
         [Display(Name="Number of Drawers")]
         public int NumberOfDrawers { get; set; }
 
-        [Display(Name = "Desktop MaterialId")]
+        [Display(Name = "Desktop Material")]
         public int DesktopMaterialId { get; set; }
 
         //navegation  propeties

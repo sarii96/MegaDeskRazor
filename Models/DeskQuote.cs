@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 
 namespace MegaDeskRazor.Models
 {
@@ -39,10 +40,8 @@ namespace MegaDeskRazor.Models
         public Delivery DeliveryType { get; set; }
 
         //methods
-        //you have to add _context
-        public decimal GetQuotePrice()
+        public decimal GetQuotePrice(MegaDeskRazor.Data.MegaDeskRazorContext context)
         {
-            // getRushOrderPrices();
             decimal quotePrice = BASE_DESK_PRICE;
 
             decimal surfaceArea = this.Desk.Depth * this.Desk.Width;
@@ -57,80 +56,26 @@ namespace MegaDeskRazor.Models
             decimal drawerPrice = this.Desk.NumberOfDrawers * DRAWER_COST;
 
             decimal surfaceMaterialPrice = 0.00M;
-
-            //switch (this.Desk.Material)
-            //{
-            //    case DesktopMaterial.Laminate:
-            //        surfaceMaterialPrice = LAMINATE_COST;
-            //        break;
-
-            //    case DesktopMaterial.Oak:
-            //        surfaceMaterialPrice = OAK_COST;
-            //        break;
-
-            //    case DesktopMaterial.Pine:
-            //        surfaceMaterialPrice = PINE_COST;
-            //        break;
-
-            //    case DesktopMaterial.Rosewood:
-            //        surfaceMaterialPrice = ROSEWOOD_COST;
-            //        break;
-
-            //    case DesktopMaterial.Veneer:
-            //        surfaceMaterialPrice = VENEER_COST;
-            //        break;
-            //}
+            var surfaceMaterialPrices = context.DesktopMaterial.Where(d => d.DesktopMaterialId == this.Desk.DesktopMaterialId).FirstOrDefault();
+            surfaceMaterialPrice = surfaceMaterialPrices.DesktopMaterialPrice;
 
             decimal shippingPrice = 0.00M;
+            var shippingPrices = context.Delivery.Where(d => d.DeliveryId == this.DeliveryId).FirstOrDefault();
 
-            //// switch (this.DeliveryType)
-            // {
-            //     case Delivery.Rush3Days:
-            //         if (surfaceArea < 1000)
-            //     {
-            //         shippingPrice = _rushOrderPrices[0, 0];
-            //     }
-            //         else if (surfaceArea <= 2000)
-            // {
-            //        shippingPrice = _rushOrderPrices[0, 1];
-            // }
-            //else
-            //{
-            //    shippingPrice = _rushOrderPrices[0, 2];
-            //}
-            //break;
+            if (surfaceArea < 1000)
+            {
+                shippingPrice = shippingPrices.LessThan1000;
+            } 
+            else if (surfaceArea >= 1000 || surfaceArea <= 2000)
+            {
+                shippingPrice = shippingPrices.Between1000and2000;
+            }
+            else
+            {
+                shippingPrice = shippingPrices.GreatherThan2000;
+            }
+          
 
-            // case Delivery.Rush5Days:
-            //         if (surfaceArea < 1000)
-            //     {
-            //         shippingPrice = _rushOrderPrices[1, 0];
-            //     }
-            //         else if (surfaceArea <= 2000)
-            // {
-            //        shippingPrice = _rushOrderPrices[1, 1];
-            // }
-            //else
-            //{
-            //    shippingPrice = _rushOrderPrices[1, 2];
-            //}
-            //break;
-
-            // case Delivery.Rush7Days:
-            //         if (surfaceArea < 1000)
-            //     {
-            //         shippingPrice = _rushOrderPrices[2, 0];
-            //     }
-            //         else if (surfaceArea <= 2000)
-            // {
-            //        shippingPrice = _rushOrderPrices[2, 1];
-            // }
-            //else
-            //{
-            //    shippingPrice = _rushOrderPrices[2, 2];
-            //}
-            //break;
-
-            //}
             quotePrice = quotePrice + surfacePrice + drawerPrice + surfaceMaterialPrice + shippingPrice;
             return quotePrice;
         }
