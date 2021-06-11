@@ -27,11 +27,17 @@ namespace MegaDeskRazor.Pages.DeskQuotes
         [BindProperty(SupportsGet = true)]
         public string DeskCustomerName { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string searchString)
         {
-            DeskQuote = await _context.DeskQuote
-                .Include(d => d.DeliveryType)
-                .Include(d => d.Desk).ToListAsync();
+            IQueryable<DeskQuote> query = from d in _context.DeskQuote
+                                           select d;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                query = query.Where(s => s.CustomerName.Contains(searchString));
+
+            }
+            DeskQuote = await query.ToListAsync();
         }
     }
 }
